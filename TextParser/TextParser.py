@@ -1,4 +1,5 @@
 
+import PyInstaller
 import tkinter 
 from tkinter import ttk
 import pyperclip
@@ -18,18 +19,18 @@ Copys the text in inputText, removes all newline characters and reconnects all w
 pastes this into outputText
 '''
 def processTextBox():
-    global outputText
-    outputText.delete("1.0", tkinter.END)
-    print("processTextBox")
+    global inputText
+    #print("processTextBox")
     inp = inputText.get("1.0", 'end-1c')
-    print(inp)
+    inputText.delete("1.0", tkinter.END)
+    #print(inp)
     output = parseText(inp)
-    print(output)
-    outputText.insert(tkinter.INSERT, output)
+    #print(output)
+    inputText.insert(tkinter.INSERT, output)
 
 '''Copies the contents of outputText to the clipboard'''
 def copyToClipboard():
-    text = outputText.get("1.0", tkinter.END)
+    text = inputText.get("1.0", tkinter.END)
     pyperclip.copy(text)
 
 
@@ -39,13 +40,12 @@ root.geometry("800x600")
 frm = ttk.Frame(root, padding=10)
 
 frm.grid()
-inputText = tkinter.Text(frm, height = 10, width= 20)
+inputText = tkinter.Text(frm, height = 20, width= 40)
 inputText.grid(column = 0, row = 1)
 
-outputText = tkinter.Text(frm, height = 10, width= 20)
-outputText.grid(column = 1, row = 1)
+#outputText = tkinter.Text(frm, height = 20, width= 40)
+#outputText.grid(column = 1, row = 1)
 #ttk.Text
-ttk.Label(frm, text="Enter input on left, get output on right").grid(column=0, row=0)
-ttk.Button(frm, text="Process", command=processTextBox).grid(column=1, row=0)
-ttk.Button(frm, text="Copy to clipbord", command=copyToClipboard).grid(column=1, row=2)
+ttk.Button(frm, text="Process", command=processTextBox).grid(column=0, row=0)
+ttk.Button(frm, text="Copy to clipbord", command=copyToClipboard).grid(column=0, row=2)
 root.mainloop()
