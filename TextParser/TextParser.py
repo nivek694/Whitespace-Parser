@@ -10,7 +10,12 @@ global inputText, outputText
 Removes all newline characters and reconnects all words that are split by a -
 '''
 def parseText(text : str) -> str:
-    text = re.sub("\S-\n", "", text)
+    
+    pattern = re.findall("\S-\n", text)
+    for i in pattern:
+        text = re.sub(i, i[0], text)
+    
+    
     text = text.replace("\n", " ")
     return text
 
